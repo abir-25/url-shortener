@@ -1,0 +1,13 @@
+.css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root {
+    font-size: 1.2rem !important;
+}
+.css-iym5b0-MuiTypography-root{
+    font-size: 1.2rem !important;
+}
+.icon{
+    position: absolute;
+    right: 14px;
+    top: 19px;
+    color: #444444;
+    cursor: pointer
+}
