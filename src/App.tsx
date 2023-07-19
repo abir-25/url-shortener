@@ -3,9 +3,10 @@ import './App.css';
 import Home from "./pages/Home";
 import EditUrl from "./pages/EditUrl";
 import UrlList from "./pages/UrlList";
-import BackgroundAnimation from "./component/BackgroundAnimation";
 import InputShortener from "./Tuto/InputShortener";
 import LinkResult from "./Tuto/LinkResult";
+import NavBar from "./component/NavBar";
+import {Route, Routes} from "react-router";
 
 function App() {
     const [inputValue, setInputValue] = useState("");
@@ -14,11 +15,13 @@ function App() {
     <div className="App">
         {/*<InputShortener setInputValue={setInputValue} />*/}
         {/*<LinkResult inputValue={inputValue} />*/}
-
-        <Home />
+        <NavBar />
+        <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/urlList' element={<UrlList />} />
+        </Routes>
         {/*<EditUrl />*/}
         {/*<UrlList />*/}
-        {/*<BackgroundAnimation />*/}
     </div>
   );
 }
