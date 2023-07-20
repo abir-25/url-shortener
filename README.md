@@ -10,7 +10,7 @@ This is a simple URL Shortener project. In home page, you just paste the long UR
 Clone the project
 
 ```bash
-  git clone https://github.com/abir-25/url-shortener
+  git clone https://github.com/abir-25/url-shortener.git
 ```
 
 Go to the project directory
