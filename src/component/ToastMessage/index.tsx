@@ -12,7 +12,7 @@ export default function ToastMessage(props: any) {
     return (
         <Box sx={{display: 'flex', flexDirection:'row', justifyContent: 'center', alignItems:'center'}}>
             {
-                type === 'success' && <CheckCircle sx={{color: '#0abf50', fontSize: '20px'}}/>
+                type === 'success' && <CheckCircle sx={{color: '#09ad49', fontSize: '20px'}}/>
             }
             {
                 type === 'info' && <Info sx={{color: '#60a5fa', fontSize: '20px'}}/>
@@ -20,7 +20,7 @@ export default function ToastMessage(props: any) {
             {
                 type === 'error' && <Cancel sx={{color: '#f87171', fontSize: '20px'}}/>
             }
-            <Typography sx={{color: type === 'success' ? '#0abf50' : type === 'info' ? '#60a5fa' : '#f87171', mr: 1, ml: 1, fontSize: isSmallScreen ? '12px' : '14px'}}>{message}</Typography>
+            <Typography sx={{color: type === 'success' ? '#09ad49' : type === 'info' ? '#60a5fa' : '#f87171', mr: 1, ml: 1, fontSize: isSmallScreen ? '12px' : '15px'}}>{message}</Typography>
         </Box>
     );
 }

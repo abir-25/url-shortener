@@ -8,7 +8,17 @@ import logo from "../../assets/icon.png";
 import {Link} from "react-router-dom";
 import './index.css';
 import MenuItem from "@mui/material/MenuItem";
+import {makeStyles} from "@mui/styles";
+
+const useStyles = makeStyles({
+    link: {
+        color: '#ffffff',
+        textDecoration: 'none',
+    },
+});
+
 export default function NavBar() {
+    const classes = useStyles();
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
@@ -26,8 +36,8 @@ export default function NavBar() {
 
                     </IconButton>
                     <MenuItem>
-                        <Typography variant="h6">
-                            <Link to='/urlList'>URL List</Link>
+                        <Typography variant="h6" sx={{color: '#ffffff'}}>
+                            <Link to='/urlList' className={classes.link}>URL List</Link>
                         </Typography>
                     </MenuItem>
                 </Toolbar>
