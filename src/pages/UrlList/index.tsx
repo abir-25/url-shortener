@@ -68,8 +68,8 @@ export default function UrlList() {
                        height: '90vh'}} >
             <Box
                 sx={{
-                    width: isSmallScreen ? '100%' : isMediumScreen? '95%' : '90%',
-                    height: 650,
+                    width: isSmallScreen ? '100%' : isMediumScreen ? '95%' : '90%',
+                    height: isSmallScreen ? 450 : isMediumScreen ? 450 : 650,
                     overflowY: 'auto',
                     boxShadow: 'rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px'
                 }}>
@@ -79,8 +79,8 @@ export default function UrlList() {
                             <Table sx={{ minWidth: '300px' }} aria-label="simple table">
                                 <TableHead>
                                     <TableRow>
-                                        <TableCell width='57%'><Typography sx={{fontWeight: '500'}}>Long Url</Typography></TableCell>
-                                        <TableCell width='27%'><Typography sx={{fontWeight: '500'}}>Short Url</Typography></TableCell>
+                                        <TableCell width='55%'><Typography sx={{fontWeight: '500'}}>Long Url</Typography></TableCell>
+                                        <TableCell width='29%'><Typography sx={{fontWeight: '500'}}>Short Url</Typography></TableCell>
                                         <TableCell width='16%'><Typography sx={{fontWeight: '500'}}>Action</Typography></TableCell>
                                     </TableRow>
                                 </TableHead>
@@ -108,7 +108,7 @@ export default function UrlList() {
                         urlList?.length===0 && !isLoading ?
                         <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '100%'}}>
                             <img width='210px' src={noData} alt='No Data'/>
-                            <Typography sx={{my: 3}}>No Data Found</Typography>
+                            <Typography sx={{mt: 1, mb: 3}}>No Data Found</Typography>
                             <Button variant="contained" onClick={()=>{ navigate("/")}}>Shorten URL</Button>
                         </Box>
                             :
