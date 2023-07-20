@@ -6,7 +6,7 @@ import UrlList from "./pages/UrlList";
 import InputShortener from "./Tuto/InputShortener";
 import LinkResult from "./Tuto/LinkResult";
 import NavBar from "./component/NavBar";
-import {Route, Routes} from "react-router";
+import {Route, Routes} from "react-router-dom";
 
 function App() {
     const [inputValue, setInputValue] = useState("");
@@ -19,6 +19,7 @@ function App() {
         <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/urlList' element={<UrlList />} />
+            <Route path='/editUrl' element={<EditUrl />} />
         </Routes>
         {/*<EditUrl />*/}
         {/*<UrlList />*/}
