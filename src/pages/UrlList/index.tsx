@@ -1,26 +1,10 @@
 import * as React from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import {TableContainer, Table, TableHead, TableBody, TableCell, TableRow, Container, useMediaQuery, Box, Link, Typography, useTheme, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, CircularProgress } from '@mui/material';
 import LocalStorage from "../../utils/LocalStorage";
 import {useEffect, useState} from "react";
-import {Container, useMediaQuery} from "@mui/material";
-import Box from "@mui/material/Box";
-import {useTheme} from "@mui/material/styles";
-import { Link } from '@mui/material';
-import {Link as RouterLink} from "react-router-dom";
-import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import noData from "../../assets/no-data.png";
+import {Link as RouterLink} from 'react-router-dom';
 
 export default function UrlList() {
     const theme = useTheme();
@@ -31,7 +15,8 @@ export default function UrlList() {
     const [open, setOpen] = React.useState(false);
 
     const [urlList, setUrlList] = useState([])
-    const [deleteId, setDeleteId] = useState(0)
+    const [deleteId, setDeleteId] = useState(0);
+    const [isLoading, setIsLoading] = useState(true);
 
     interface urlObject {
         id: number;
@@ -40,11 +25,14 @@ export default function UrlList() {
     }
 
     useEffect(()=>{
+        setIsLoading(true);
         getUrlList();
     }, [])
 
     const getUrlList = () =>{
-        setUrlList(LocalStorage.getURLFromLocalStorage());
+        let urlListData = LocalStorage.getURLFromLocalStorage();
+        setIsLoading(false);
+        setUrlList(urlListData);
     }
 
     const handleClickOpen = (id: number) => {
@@ -81,39 +69,54 @@ export default function UrlList() {
             <Box
                 sx={{
                     width: isSmallScreen ? '100%' : isMediumScreen? '95%' : '90%',
-                    minHeight: 650,
+                    height: 650,
                     overflowY: 'auto',
                     boxShadow: 'rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px'
                 }}>
-                <TableContainer>
-                    <Table sx={{ minWidth: '300px' }} aria-label="simple table">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell width='57%'><Typography sx={{fontWeight: '500'}}>Long Url</Typography></TableCell>
-                                <TableCell width='27%'><Typography sx={{fontWeight: '500'}}>Short Url</Typography></TableCell>
-                                <TableCell width='16%'><Typography sx={{fontWeight: '500'}}>Action</Typography></TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {urlList.map((row: urlObject) => (
-                                <TableRow
-                                    key={row.id}
-                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                >
-                                    <TableCell component="th" scope="row">
-                                        <Link sx={{textDecoration: 'none'}} href={row.shortUrl} component="a" target="_blank"><Typography>{row.longUrl}</Typography></Link>
-                                    </TableCell>
-                                    <TableCell><Link sx={{textDecoration: 'none'}} href={row.shortUrl} component="a" target="_blank"><Typography>{row.shortUrl}</Typography></Link></TableCell>
-                                    <TableCell>
-                                        <Box sx={{display: 'flex'}}>
-                                            <Typography sx={{cursor: 'pointer', mr: 1}} onClick={()=>{handleEdit(row.id)}}>Edit </Typography> ||  <Typography sx={{cursor: 'pointer', ml: 1}} onClick={()=>{handleClickOpen(row.id)}}>Delete </Typography>
-                                        </Box>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+                {
+                    urlList?.length>0 && !isLoading ?
+                        <TableContainer>
+                            <Table sx={{ minWidth: '300px' }} aria-label="simple table">
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell width='57%'><Typography sx={{fontWeight: '500'}}>Long Url</Typography></TableCell>
+                                        <TableCell width='27%'><Typography sx={{fontWeight: '500'}}>Short Url</Typography></TableCell>
+                                        <TableCell width='16%'><Typography sx={{fontWeight: '500'}}>Action</Typography></TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {urlList.map((row: urlObject) => (
+                                        <TableRow
+                                            key={row.id}
+                                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                        >
+                                            <TableCell component="th" scope="row">
+                                                <Link sx={{textDecoration: 'none'}} href={row.shortUrl} component="a" target="_blank"><Typography>{row.longUrl}</Typography></Link>
+                                            </TableCell>
+                                            <TableCell><Link sx={{textDecoration: 'none'}} href={row.shortUrl} component="a" target="_blank"><Typography>{row.shortUrl}</Typography></Link></TableCell>
+                                            <TableCell>
+                                                <Box sx={{display: 'flex'}}>
+                                                    <Typography sx={{cursor: 'pointer', mr: 1}} onClick={()=>{handleEdit(row.id)}}>Edit </Typography> ||  <Typography sx={{cursor: 'pointer', ml: 1}} onClick={()=>{handleClickOpen(row.id)}}>Delete </Typography>
+                                                </Box>
+                                            </TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                        :
+                        urlList?.length===0 && !isLoading ?
+                        <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '100%'}}>
+                            <img width='210px' src={noData} alt='No Data'/>
+                            <Typography sx={{my: 3}}>No Data Found</Typography>
+                            <Button variant="contained" onClick={()=>{ navigate("/")}}>Shorten URL</Button>
+                        </Box>
+                            :
+                        <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+                            <CircularProgress />
+                        </Box>
+                }
+
             </Box>
             <Dialog
                 open={open}
