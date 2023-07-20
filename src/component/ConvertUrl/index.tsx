@@ -90,7 +90,7 @@ function ConvertUrl(props: any) {
     const removeMessage = () =>{
         setTimeout(()=>{
             setMessage('');
-        }, 5500)
+        }, 1500)
     }
 
     const handleSaveUrl = () =>{
